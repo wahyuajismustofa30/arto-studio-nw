@@ -1,0 +1,10 @@
+{
+  "name": "novi-wahyu-wedding-photo-studio",
+  "private": true,
+  "type": "module",
+  "description": "Editor bingkai foto pernikahan Novi & Wahyu — statis, tanpa build step.",
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "validate": "node tools/validate-templates.mjs"
+  }
+}

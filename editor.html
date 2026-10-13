@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Editor Bingkai | Novi &amp; Wahyu Wedding Photo Studio</title>
+  <meta name="description" content="Masukkan fotomu ke bingkai pernikahan Novi &amp; Wahyu, atur posisinya, lalu unduh sebagai PNG atau JPG.">
+  <meta name="theme-color" content="#F8F4EE">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Novi &amp; Wahyu Wedding Photo Studio">
+  <meta property="og:description" content="Buat foto berbingkai spesial pernikahan Novi &amp; Wahyu langsung di browser.">
+  <meta property="og:image" content="assets/images/branding/og-image.jpg">
+  <link rel="icon" href="assets/images/branding/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/images/branding/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/editor.css">
+  <script type="module" src="assets/js/editor.js"></script>
+</head>
+<body class="editor-page">
+  <div class="ed-app">
+    <header class="ed-top">
+      <a class="icon-btn" href="templates.html" aria-label="Kembali ke galeri template"><span data-icon="back"></span></a>
+      <div class="ed-title">
+        <span>Novi &amp; Wahyu Studio</span>
+        <h1 id="tpl-name">Memuat editor…</h1>
+      </div>
+      <div class="ed-history">
+        <button class="icon-btn" id="undo" type="button" aria-label="Urungkan (Undo)" title="Urungkan" disabled><span data-icon="undo"></span></button>
+        <button class="icon-btn" id="redo" type="button" aria-label="Ulangi (Redo)" title="Ulangi" disabled><span data-icon="redo"></span></button>
+      </div>
+    </header>
+
+    <main class="ed-main" id="main">
+      <div class="ed-stage" id="stage">
+        <canvas id="canvas" tabindex="0" role="img" aria-label="Pratinjau bingkai"></canvas>
+        <div class="ed-loading" id="loading" role="status">Menyiapkan editor…</div>
+        <p class="ed-drop-hint" aria-hidden="true">Lepaskan untuk memasukkan foto</p>
+      </div>
+
+      <aside class="ed-panel" aria-label="Pengaturan editor">
+        <div class="ed-tabs" role="tablist" aria-label="Menu editor">
+          <button class="ed-tab" role="tab" id="tab-foto" aria-controls="pane-foto" aria-selected="true" type="button"><span data-icon="image"></span><span>Foto</span></button>
+          <button class="ed-tab" role="tab" id="tab-kualitas" aria-controls="pane-kualitas" aria-selected="false" tabindex="-1" type="button"><span data-icon="sparkle"></span><span>Kualitas</span></button>
+          <button class="ed-tab" role="tab" id="tab-atur" aria-controls="pane-atur" aria-selected="false" tabindex="-1" type="button"><span data-icon="move"></span><span>Atur</span></button>
+          <button class="ed-tab" role="tab" id="tab-teks" aria-controls="pane-teks" aria-selected="false" tabindex="-1" type="button"><span data-icon="text"></span><span>Teks</span></button>
+          <button class="ed-tab" role="tab" id="tab-template" aria-controls="pane-template" aria-selected="false" tabindex="-1" type="button"><span data-icon="layout"></span><span>Template</span></button>
+          <button class="ed-tab" role="tab" id="tab-simpan" aria-controls="pane-simpan" aria-selected="false" tabindex="-1" type="button"><span data-icon="save"></span><span>Simpan</span></button>
+        </div>
+
+        <div class="ed-panes">
+          <section class="ed-pane" id="pane-foto" role="tabpanel" aria-labelledby="tab-foto">
+            <div class="slot-chips" id="slot-chips" role="group" aria-label="Pilih area foto"></div>
+            <div class="row">
+              <button class="btn btn-primary" id="pick" type="button"><span data-icon="image"></span><span id="pick-label">Pilih Foto</span></button>
+              <button class="btn btn-secondary" id="remove" type="button" disabled><span data-icon="trash"></span>Hapus Foto</button>
+            </div>
+            <button class="btn btn-ghost" id="pick-many" type="button" hidden><span data-icon="plus"></span>Isi beberapa foto sekaligus</button>
+            <p class="hint">Format JPG, PNG, atau WebP, maks. 30 MB. Ketuk area foto di kanvas untuk menambah foto, lalu geser untuk mengatur posisinya.</p>
+          </section>
+
+          <section class="ed-pane" id="pane-kualitas" role="tabpanel" aria-labelledby="tab-kualitas" hidden>
+            <p class="hint" id="q-target">Tambahkan foto terlebih dahulu untuk mengoptimalkan kualitasnya.</p>
+            <button class="q-auto" id="q-auto" type="button" aria-pressed="false" disabled>
+              <span class="q-switch" aria-hidden="true"></span>
+              <span><strong>Optimalkan otomatis</strong><small>Menyeimbangkan cahaya, warna, kontras, dan ketajaman</small></span>
+            </button>
+            <div class="q-sliders">
+              <div class="q-row"><label for="q-brightness">Kecerahan</label><input type="range" id="q-brightness" data-adj="brightness" min="-100" max="100" step="1" value="0" disabled><output for="q-brightness">0</output></div>
+              <div class="q-row"><label for="q-contrast">Kontras</label><input type="range" id="q-contrast" data-adj="contrast" min="-100" max="100" step="1" value="0" disabled><output for="q-contrast">0</output></div>
+              <div class="q-row"><label for="q-saturation">Saturasi</label><input type="range" id="q-saturation" data-adj="saturation" min="-100" max="100" step="1" value="0" disabled><output for="q-saturation">0</output></div>
+              <div class="q-row"><label for="q-warmth">Kehangatan</label><input type="range" id="q-warmth" data-adj="warmth" min="-100" max="100" step="1" value="0" disabled><output for="q-warmth">0</output></div>
+              <div class="q-row"><label for="q-sharpness">Ketajaman</label><input type="range" id="q-sharpness" data-adj="sharpness" min="0" max="100" step="1" value="0" disabled><output for="q-sharpness">0</output></div>
+            </div>
+            <div class="row">
+              <button class="btn btn-secondary" id="q-compare" type="button" disabled><span data-icon="eye"></span>Tahan untuk lihat asli</button>
+              <button class="btn btn-secondary" id="q-reset" type="button" disabled><span data-icon="reset"></span>Nolkan slider</button>
+            </div>
+            <button class="btn btn-ghost" id="q-all" type="button" hidden>Terapkan pengaturan ini ke semua foto</button>
+            <p class="hint" id="q-info"></p>
+          </section>
+
+          <section class="ed-pane" id="pane-atur" role="tabpanel" aria-labelledby="tab-atur" hidden>
+            <p class="hint" id="adjust-hint">Tambahkan foto terlebih dahulu untuk mengatur posisi.</p>
+            <div class="zoom-row">
+              <button class="icon-btn" id="zoom-out" type="button" aria-label="Perkecil" disabled><span data-icon="minus"></span></button>
+              <label class="sr-only" for="zoom">Zoom foto</label>
+              <input type="range" id="zoom" min="100" max="500" step="1" value="100" disabled>
+              <button class="icon-btn" id="zoom-in" type="button" aria-label="Perbesar" disabled><span data-icon="plus"></span></button>
+              <output id="zoom-val" for="zoom">100%</output>
+            </div>
+            <div class="row">
+              <button class="btn btn-secondary" id="rotate" type="button" disabled><span data-icon="rotate"></span>Putar 90°</button>
+              <button class="btn btn-secondary" id="reset-pos" type="button" disabled><span data-icon="reset"></span>Reset posisi</button>
+            </div>
+            <div class="nudge" role="group" aria-label="Geser foto">
+              <button class="icon-btn" data-nudge="0,-1" type="button" aria-label="Geser ke atas" disabled><span data-icon="up"></span></button>
+              <button class="icon-btn" data-nudge="-1,0" type="button" aria-label="Geser ke kiri" disabled><span data-icon="left"></span></button>
+              <button class="icon-btn" data-nudge="1,0" type="button" aria-label="Geser ke kanan" disabled><span data-icon="right"></span></button>
+              <button class="icon-btn" data-nudge="0,1" type="button" aria-label="Geser ke bawah" disabled><span data-icon="down"></span></button>
+            </div>
+            <p class="hint">Di layar sentuh: geser dengan satu jari, cubit dengan dua jari untuk zoom. Di komputer: seret dengan mouse, gulir untuk zoom.</p>
+          </section>
+
+          <section class="ed-pane" id="pane-teks" role="tabpanel" aria-labelledby="tab-teks" hidden>
+            <div id="text-fields" class="fields"></div>
+            <button class="btn btn-ghost" id="reset-text" type="button"><span data-icon="reset"></span>Kembalikan teks bawaan</button>
+          </section>
+
+          <section class="ed-pane" id="pane-template" role="tabpanel" aria-labelledby="tab-template" hidden>
+            <p class="hint">Foto yang sudah dimasukkan akan dipindahkan ke template baru.</p>
+            <ul class="tpl-picker" id="tpl-picker"></ul>
+            <a class="btn btn-ghost" href="templates.html">Buka galeri lengkap</a>
+          </section>
+
+          <section class="ed-pane" id="pane-simpan" role="tabpanel" aria-labelledby="tab-simpan" hidden>
+            <fieldset class="res-choice">
+              <legend>Resolusi</legend>
+              <label><input type="radio" name="res" value="standard" checked> <span>Standar <small id="res-standard"></small></span></label>
+              <label><input type="radio" name="res" value="high"> <span>Tinggi <small id="res-high"></small></span></label>
+            </fieldset>
+            <div class="row">
+              <button class="btn btn-primary" id="dl-png" type="button"><span data-icon="download"></span>Unduh PNG</button>
+              <button class="btn btn-primary" id="dl-jpg" type="button"><span data-icon="download"></span>Unduh JPG</button>
+            </div>
+            <div class="row">
+              <button class="btn btn-secondary" id="share" type="button"><span data-icon="share"></span>Bagikan</button>
+              <button class="btn btn-secondary" id="preview" type="button"><span data-icon="eye"></span>Pratinjau</button>
+            </div>
+            <p class="hint" id="save-hint">PNG menjaga kualitas terbaik; JPG berukuran lebih kecil dan cocok untuk dikirim lewat chat.</p>
+            <hr>
+            <button class="btn btn-danger" id="reset-all" type="button"><span data-icon="trash"></span>Mulai ulang desain</button>
+          </section>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden>
+  <input type="file" id="files" accept="image/jpeg,image/png,image/webp" multiple hidden>
+
+  <dialog class="modal" id="dlg-result" aria-labelledby="dlg-result-title">
+    <div class="modal-inner">
+      <div class="modal-head"><h2 id="dlg-result-title">Foto siap</h2><button class="icon-btn" data-close type="button" aria-label="Tutup"><span data-icon="close"></span></button></div>
+      <div class="modal-body">
+        <p id="dlg-result-text"></p>
+        <img class="modal-preview" id="dlg-result-img" alt="Hasil foto berbingkai">
+      </div>
+      <div class="modal-actions"><button class="btn btn-primary" data-close type="button">Selesai</button></div>
+    </div>
+  </dialog>
+
+  <dialog class="modal is-wide" id="dlg-preview" aria-labelledby="dlg-preview-title">
+    <div class="modal-inner">
+      <div class="modal-head"><h2 id="dlg-preview-title">Pratinjau hasil</h2><button class="icon-btn" data-close type="button" aria-label="Tutup"><span data-icon="close"></span></button></div>
+      <div class="modal-body"><img class="modal-preview" id="dlg-preview-img" alt="Pratinjau hasil akhir"></div>
+      <div class="modal-actions"><button class="btn btn-secondary" data-close type="button">Kembali mengedit</button></div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dlg-share" aria-labelledby="dlg-share-title">
+    <div class="modal-inner">
+      <div class="modal-head"><h2 id="dlg-share-title">Bagikan foto</h2><button class="icon-btn" data-close type="button" aria-label="Tutup"><span data-icon="close"></span></button></div>
+      <div class="modal-body"><p id="dlg-share-text"></p></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="share-copy" type="button"><span data-icon="link"></span>Salin tautan website</button>
+        <button class="btn btn-secondary" id="share-dl" type="button"><span data-icon="download"></span>Unduh JPG</button>
+        <button class="btn btn-primary" id="share-now" type="button" hidden><span data-icon="share"></span>Bagikan sekarang</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dlg-confirm" aria-labelledby="dlg-confirm-title">
+    <form method="dialog" class="modal-inner">
+      <div class="modal-head"><h2 id="dlg-confirm-title">Mulai ulang desain?</h2></div>
+      <div class="modal-body"><p>Semua foto dan teks pada desain ini akan dikosongkan. Kamu masih bisa memulihkannya dengan tombol Urungkan.</p></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" value="cancel">Batal</button>
+        <button class="btn btn-primary" value="ok">Ya, mulai ulang</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Galeri Template | Novi &amp; Wahyu Wedding Photo Studio</title>
+  <meta name="description" content="Galeri bingkai foto pernikahan Novi &amp; Wahyu: romantic floral, elegant gold, islami, vintage film, photobooth strip, dan lainnya.">
+  <meta name="theme-color" content="#F8F4EE">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Galeri Template — Novi &amp; Wahyu Wedding Photo Studio">
+  <meta property="og:description" content="Pilih bingkai foto pernikahan favoritmu dan edit langsung di browser.">
+  <meta property="og:image" content="assets/images/branding/og-image.jpg">
+  <link rel="icon" href="assets/images/branding/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/images/branding/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <script type="module" src="assets/js/gallery.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="wordmark" href="index.html" aria-label="Novi &amp; Wahyu Wedding Photo Studio, beranda">
+        <span class="monogram" aria-hidden="true">N<i>&amp;</i>W</span>
+        <span class="wordmark-text"><strong>Novi &amp; Wahyu</strong><span>Wedding Photo Studio</span></span>
+      </a>
+      <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Buka menu"><span data-icon="menu"></span></button>
+      <nav class="site-nav" id="site-menu" aria-label="Navigasi utama">
+        <a href="templates.html" aria-current="page">Template</a>
+        <a href="index.html#cara">Cara Pakai</a>
+        <a href="index.html#faq">FAQ</a>
+        <a class="btn btn-primary" href="editor.html">Mulai Buat Bingkai</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <div class="page-head">
+      <p class="eyebrow">Galeri template</p>
+      <h1>Temukan bingkai favoritmu</h1>
+      <p class="lead">Setiap desain siap dipakai — ketuk “Gunakan Template” untuk langsung membukanya di editor.</p>
+    </div>
+
+    <div class="gallery-toolbar">
+      <div class="search-row">
+        <div class="search-field">
+          <span data-icon="search"></span>
+          <label class="sr-only" for="search">Cari nama template</label>
+          <input class="input" id="search" type="search" placeholder="Cari nama template…" autocomplete="off" enterkeyhint="search">
+        </div>
+        <label class="sr-only" for="sort">Urutkan</label>
+        <select class="select" id="sort">
+          <option value="featured">Unggulan dulu</option>
+          <option value="name">Nama A–Z</option>
+          <option value="ratio">Kelompokkan rasio</option>
+          <option value="photos">Jumlah foto terbanyak</option>
+        </select>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter kategori"></div>
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+    </div>
+
+    <ul class="template-grid" id="grid" aria-label="Daftar template"></ul>
+    <div id="empty" hidden></div>
+    <div style="height:56px"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-ornament" aria-hidden="true"></div>
+      <p class="names">Novi &amp; Wahyu</p>
+      <p class="date">Jumat, 16 Oktober 2026</p>
+    </div>
+  </footer>
+</body>
+</html>
