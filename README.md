@@ -117,7 +117,7 @@ Tipe layer yang tersedia: `fill`, `rect`, `gradientRect`, `line`, `slotShadow`, 
   Path harus relatif (tanpa `/` di depan). Validator memeriksa file benar-benar ada.
 - **Thumbnail manual:** isi `"thumbnail": "assets/images/thumbnails/nama.webp"` (default `"auto"` = dibuat otomatis).
 - **Font:** ganti file di `assets/fonts/` dan `fonts.css`, lalu sesuaikan `FONT_FAMILIES` di `fonts.js`.
-- **Gambar pratinjau tautan:** `assets/images/branding/og-image.jpg` (1200×630).
+- **Gambar pratinjau tautan:** `https://res.cloudinary.com/ahwihzsc/image/upload/og-image_-studio-nw.jpg` (1200×630).
 
 ## Build
 
